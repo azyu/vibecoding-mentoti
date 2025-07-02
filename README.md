@@ -32,7 +32,7 @@ cp backend/.env.example backend/.env
 npm run dev
 ```
 
-- 프론트엔드: http://localhost:3000
+- 프론트엔드: http://localhost:3030
 - 백엔드 API: http://localhost:8080/api
 - Swagger UI: http://localhost:8080/swagger-ui
 
