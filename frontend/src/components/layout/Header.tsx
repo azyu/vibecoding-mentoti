@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/Button';
 import { UserRole } from '@/types';
+import { getGravatarUrl } from '@/lib/utils';
 
 export function Header() {
   const { user, logout } = useAuth();
@@ -63,9 +64,16 @@ export function Header() {
           <div className="flex items-center space-x-4">
             {user ? (
               <>
-                <span className="text-sm text-gray-700">
-                  {user.name} ({user.role === UserRole.MENTOR ? '멘토' : '멘티'})
-                </span>
+                <div className="flex items-center space-x-2">
+                  <img
+                    src={user.profileImage || getGravatarUrl(user.email, 40)}
+                    alt={user.name}
+                    className="w-8 h-8 rounded-full object-cover"
+                  />
+                  <span className="text-sm text-gray-700">
+                    {user.name} ({user.role === UserRole.MENTOR ? '멘토' : '멘티'})
+                  </span>
+                </div>
                 <Button variant="outline" size="sm" onClick={handleLogout}>
                   로그아웃
                 </Button>

@@ -167,18 +167,21 @@ export default function ProfilePage() {
                   </label>
                   <div className="flex items-center space-x-4">
                     <div className="w-24 h-24 rounded-full overflow-hidden bg-gray-200">
-                    <img
-                      src={profileImage || getGravatarUrl(user.email, 200)}
-                      alt={user.name}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                    <input
-                      type="file"
-                      accept="image/jpeg,image/png"
-                      onChange={handleImageChange}
-                      className="text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
-                    />
+                      <img
+                        src={profileImage || getGravatarUrl(user.email, 200)}
+                        alt={user.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div>
+                      <input
+                        type="file"
+                        accept="image/jpeg,image/png"
+                        onChange={handleImageChange}
+                        className="text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                      />
+                      <p className="mt-1 text-xs text-gray-500">.jpg 또는 .png 형식, 최대 5MB</p>
+                    </div>
                   </div>
                 </div>
 

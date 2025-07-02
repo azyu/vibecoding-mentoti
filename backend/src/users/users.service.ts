@@ -33,7 +33,7 @@ export class UsersService {
       throw new NotFoundException('사용자를 찾을 수 없습니다.');
     }
 
-    if (updateProfileDto.techStack && user.role !== UserRole.MENTOR) {
+    if (updateProfileDto.techStack !== undefined && updateProfileDto.techStack.length > 0 && user.role !== UserRole.MENTOR) {
       throw new BadRequestException('멘티는 기술 스택을 설정할 수 없습니다.');
     }
 
