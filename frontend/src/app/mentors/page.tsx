@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/Button';
 import { Card, CardBody } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Select } from '@/components/ui/Select';
-import { Mentor, MentorListQuery, UserRole } from '@/types';
+import { Mentor, MentorListQuery, UserRole, MatchRequest } from '@/types';
 
 export default function MentorsPage() {
   const { user, loading: authLoading } = useAuth();
@@ -30,6 +30,7 @@ export default function MentorsPage() {
   const [error, setError] = useState('');
   const [requestModal, setRequestModal] = useState<{ mentorId: string; mentorName: string } | null>(null);
   const [requestMessage, setRequestMessage] = useState('');
+  const [sentRequests, setSentRequests] = useState<MatchRequest[]>([]);
 
   useEffect(() => {
     // 인증 로딩이 완료된 후에만 검사
@@ -42,16 +43,52 @@ export default function MentorsPage() {
     fetchMentors();
   }, [user, authLoading, router, filters]);
 
-  const fetchMentors = async () => {
+  const fetchData = async () => {
     try {
       setLoading(true);
-      const response = await apiClient.getMentors(filters);
-      setMentors(response.data);
-      setTotalPages(response.totalPages);
+      // 멘토 목록과 보낸 요청 목록을 동시에 가져오기
+      const [mentorsResponse, requestsResponse] = await Promise.all([
+        apiClient.getMentors(filters),
+        apiClient.getOutgoingRequests()
+      ]);
+      
+      setMentors(mentorsResponse.data);
+      setTotalPages(mentorsResponse.totalPages);
+      setSentRequests(requestsResponse);
     } catch (error: any) {
-      setError('멘토 목록을 불러오는데 실패했습니다.');
+      setError('데이터를 불러오는데 실패했습니다.');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchMentors = fetchData; // 기존 호출 유지를 위한 별칭
+
+  // 특정 멘토에게 이미 요청을 보냈는지 확인
+  const hasRequestSent = (mentorId: string) => {
+    return sentRequests.some(request => 
+      request.mentorId === mentorId && 
+      (request.status === 'pending' || request.status === 'accepted')
+    );
+  };
+
+  // 요청 상태에 따른 버튼 텍스트 및 상태 반환
+  const getRequestButtonInfo = (mentorId: string) => {
+    const request = sentRequests.find(req => req.mentorId === mentorId);
+    
+    if (!request) {
+      return { text: '매칭 요청', disabled: false, variant: 'primary' as const };
+    }
+    
+    switch (request.status) {
+      case 'pending':
+        return { text: '요청 대기중', disabled: true, variant: 'outline' as const };
+      case 'accepted':
+        return { text: '매칭 완료', disabled: true, variant: 'outline' as const };
+      case 'rejected':
+        return { text: '매칭 요청', disabled: false, variant: 'primary' as const };
+      default:
+        return { text: '매칭 요청', disabled: false, variant: 'primary' as const };
     }
   };
 
@@ -231,12 +268,24 @@ export default function MentorsPage() {
 
                     <Button
                       className="w-full"
-                      disabled={mentor.isMatched || requestLoading === mentor.id}
+                      variant={getRequestButtonInfo(mentor.id).variant}
+                      disabled={
+                        mentor.isMatched || 
+                        getRequestButtonInfo(mentor.id).disabled || 
+                        requestLoading === mentor.id
+                      }
                       onClick={() => {
-                        setRequestModal({ mentorId: mentor.id, mentorName: mentor.name });
+                        if (!getRequestButtonInfo(mentor.id).disabled && !mentor.isMatched) {
+                          setRequestModal({ mentorId: mentor.id, mentorName: mentor.name });
+                        }
                       }}
                     >
-                      {mentor.isMatched ? '이미 매칭됨' : '매칭 요청'}
+                      {requestLoading === mentor.id 
+                        ? '요청 중...' 
+                        : mentor.isMatched 
+                          ? '이미 매칭됨' 
+                          : getRequestButtonInfo(mentor.id).text
+                      }
                     </Button>
                   </CardBody>
                 </Card>
