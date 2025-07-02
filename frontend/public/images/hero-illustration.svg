@@ -1,0 +1,63 @@
+<svg width="400" height="300" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <circle cx="200" cy="150" r="120" fill="#EBF8FF" opacity="0.5"/>
+  
+  <!-- Mentor figure -->
+  <g id="mentor">
+    <!-- Head -->
+    <circle cx="120" cy="100" r="25" fill="#F59E0B"/>
+    <!-- Body -->
+    <rect x="105" y="120" width="30" height="40" rx="15" fill="#3B82F6"/>
+    <!-- Arms -->
+    <circle cx="90" cy="140" r="8" fill="#FBBF24"/>
+    <circle cx="150" cy="140" r="8" fill="#FBBF24"/>
+    <!-- Laptop -->
+    <rect x="85" y="160" width="70" height="45" rx="5" fill="#374151"/>
+    <rect x="90" y="165" width="60" height="35" rx="2" fill="#1F2937"/>
+    <rect x="95" y="170" width="50" height="25" fill="#60A5FA"/>
+  </g>
+  
+  <!-- Mentee figure -->
+  <g id="mentee">
+    <!-- Head -->
+    <circle cx="280" cy="100" r="25" fill="#EC4899"/>
+    <!-- Body -->
+    <rect x="265" y="120" width="30" height="40" rx="15" fill="#10B981"/>
+    <!-- Arms -->
+    <circle cx="250" cy="140" r="8" fill="#FBBF24"/>
+    <circle cx="310" cy="140" r="8" fill="#FBBF24"/>
+    <!-- Notebook -->
+    <rect x="245" y="160" width="70" height="45" rx="5" fill="#6B7280"/>
+    <rect x="250" y="165" width="60" height="35" rx="2" fill="#D1D5DB"/>
+    <!-- Lines on notebook -->
+    <line x1="255" y1="175" x2="295" y2="175" stroke="#9CA3AF" stroke-width="1"/>
+    <line x1="255" y1="185" x2="305" y2="185" stroke="#9CA3AF" stroke-width="1"/>
+    <line x1="255" y1="195" x2="290" y2="195" stroke="#9CA3AF" stroke-width="1"/>
+  </g>
+  
+  <!-- Connection lines -->
+  <path d="M155 140 Q200 120 245 140" stroke="#6366F1" stroke-width="3" fill="none" stroke-dasharray="5,5">
+    <animate attributeName="stroke-dashoffset" values="0;10" dur="2s" repeatCount="indefinite"/>
+  </path>
+  
+  <!-- Knowledge transfer icons -->
+  <g id="knowledge-bubbles">
+    <circle cx="180" cy="110" r="8" fill="#8B5CF6" opacity="0.7">
+      <animate attributeName="cy" values="110;100;110" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="200" cy="115" r="6" fill="#06B6D4" opacity="0.7">
+      <animate attributeName="cy" values="115;105;115" dur="2s" begin="0.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="220" cy="110" r="7" fill="#F59E0B" opacity="0.7">
+      <animate attributeName="cy" values="110;100;110" dur="2s" begin="1s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  
+  <!-- Tech symbols -->
+  <g id="tech-symbols" opacity="0.3">
+    <text x="60" y="80" font-family="monospace" font-size="16" fill="#6B7280">&lt;/&gt;</text>
+    <text x="320" y="80" font-family="monospace" font-size="16" fill="#6B7280">{ }</text>
+    <text x="50" y="200" font-family="monospace" font-size="14" fill="#6B7280">React</text>
+    <text x="320" y="220" font-family="monospace" font-size="14" fill="#6B7280">Node.js</text>
+  </g>
+</svg>

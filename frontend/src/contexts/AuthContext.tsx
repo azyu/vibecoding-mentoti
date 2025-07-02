@@ -49,7 +49,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setUser(userData);
       
       if (userData.role === 'mentor') {
-        router.push('/requests');
+        router.push('/requests/incoming');
       } else {
         router.push('/mentors');
       }
