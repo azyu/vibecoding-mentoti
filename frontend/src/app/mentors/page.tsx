@@ -224,11 +224,11 @@ export default function MentorsPage() {
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {mentors.map((mentor) => (
-                <Card key={mentor.id}>
+                <Card key={mentor.id} className="hover:shadow-lg transition-shadow duration-200">
                   <CardBody>
-                    <div className="flex items-start justify-between mb-4">
+                    <div className="flex items-start justify-between mb-6">
                       <div className="flex items-center space-x-4">
-                        <div className="w-16 h-16 rounded-full overflow-hidden bg-gray-200">
+                        <div className="w-16 h-16 rounded-full overflow-hidden bg-gradient-to-br from-blue-100 to-purple-100 ring-2 ring-white shadow-md">
                           {mentor.profileImage ? (
                             <img
                               src={mentor.profileImage}
@@ -236,27 +236,45 @@ export default function MentorsPage() {
                               className="w-full h-full object-cover"
                             />
                           ) : (
-                            <div className="w-full h-full flex items-center justify-center text-gray-400">
+                            <div className="w-full h-full flex items-center justify-center text-blue-500">
                               <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
                                 <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
                               </svg>
                             </div>
                           )}
                         </div>
-                        <div>
-                          <h3 className="text-lg font-semibold">{mentor.name}</h3>
-                          {mentor.isMatched && (
-                            <Badge variant="warning">매칭됨</Badge>
-                          )}
+                        <div className="flex-1">
+                          <h3 className="text-xl font-bold text-gray-900 mb-1">{mentor.name}</h3>
+                          <div className="flex items-center space-x-2">
+                            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                              멘토
+                            </span>
+                            {mentor.isMatched && (
+                              <Badge variant="warning">매칭됨</Badge>
+                            )}
+                          </div>
                         </div>
                       </div>
                     </div>
 
                     {mentor.bio && (
-                      <p className="text-gray-600 mb-4 line-clamp-2">{mentor.bio}</p>
+                      <div className="mb-4 p-3 bg-gray-50 rounded-lg border-l-4 border-blue-400">
+                        <div className="flex items-start space-x-2">
+                          <div className="flex-shrink-0 mt-1">
+                            <svg className="w-4 h-4 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+                              <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                            </svg>
+                          </div>
+                          <div className="flex-1">
+                            <p className="text-sm text-gray-500 mb-1 font-medium">멘토 소개</p>
+                            <p className="text-gray-700 text-sm leading-relaxed line-clamp-3">{mentor.bio}</p>
+                          </div>
+                        </div>
+                      </div>
                     )}
 
                     <div className="mb-4">
+                      <h4 className="text-sm font-medium text-gray-700 mb-2">기술 스택</h4>
                       <div className="flex flex-wrap gap-1">
                         {mentor.techStack.map((tech) => (
                           <Badge key={tech} variant="secondary">
