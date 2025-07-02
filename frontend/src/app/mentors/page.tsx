@@ -13,7 +13,7 @@ import { Select } from '@/components/ui/Select';
 import { Mentor, MentorListQuery, UserRole } from '@/types';
 
 export default function MentorsPage() {
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const router = useRouter();
   const [mentors, setMentors] = useState<Mentor[]>([]);
   const [loading, setLoading] = useState(true);
@@ -32,12 +32,15 @@ export default function MentorsPage() {
   const [requestMessage, setRequestMessage] = useState('');
 
   useEffect(() => {
+    // 인증 로딩이 완료된 후에만 검사
+    if (authLoading) return;
+    
     if (!user || user.role !== UserRole.MENTEE) {
       router.push('/login');
       return;
     }
     fetchMentors();
-  }, [user, router, filters]);
+  }, [user, authLoading, router, filters]);
 
   const fetchMentors = async () => {
     try {

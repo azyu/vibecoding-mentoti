@@ -7,21 +7,21 @@ import { UserRole } from '@/types';
 
 export default function RequestsPage() {
   const router = useRouter();
-  const { user, loading } = useAuth();
+  const { user, loading: authLoading } = useAuth();
 
   useEffect(() => {
-    if (!loading && user) {
+    if (!authLoading && user) {
       // 멘토인 경우 받은 요청으로, 멘티인 경우 보낸 요청으로 리다이렉션
       if (user.role === UserRole.MENTOR) {
         router.replace('/requests/incoming');
       } else {
         router.replace('/requests/outgoing');
       }
-    } else if (!loading && !user) {
+    } else if (!authLoading && !user) {
       // 로그인되지 않은 경우 로그인 페이지로
       router.replace('/login');
     }
-  }, [user, loading, router]);
+  }, [user, authLoading, router]);
 
   return (
     <div className="flex items-center justify-center min-h-screen">

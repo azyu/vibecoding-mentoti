@@ -11,7 +11,7 @@ import { Badge } from '@/components/ui/Badge';
 import { MatchRequest, MatchRequestStatus, UserRole } from '@/types';
 
 export default function IncomingRequestsPage() {
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const router = useRouter();
   const [requests, setRequests] = useState<MatchRequest[]>([]);
   const [loading, setLoading] = useState(true);
@@ -19,12 +19,29 @@ export default function IncomingRequestsPage() {
   const [error, setError] = useState('');
 
   useEffect(() => {
+    // 인증 로딩이 완료된 후에만 검사
+    if (authLoading) return;
+    
     if (!user || user.role !== UserRole.MENTOR) {
       router.push('/login');
       return;
     }
     fetchRequests();
-  }, [user, router]);
+  }, [user, authLoading, router]);
+
+  // 인증 로딩 중일 때
+  if (authLoading) {
+    return (
+      <Layout>
+        <div className="flex items-center justify-center min-h-[calc(100vh-theme(spacing.32))]">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mx-auto mb-4"></div>
+            <p className="text-gray-600">로딩 중...</p>
+          </div>
+        </div>
+      </Layout>
+    );
+  }
 
   const fetchRequests = async () => {
     try {

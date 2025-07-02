@@ -12,7 +12,7 @@ import { Badge } from '@/components/ui/Badge';
 import { UserRole, UpdateProfileData } from '@/types';
 
 export default function ProfilePage() {
-  const { user, updateUser } = useAuth();
+  const { user, updateUser, loading: authLoading } = useAuth();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [editing, setEditing] = useState(false);
@@ -26,6 +26,9 @@ export default function ProfilePage() {
   const [error, setError] = useState('');
 
   useEffect(() => {
+    // 인증 로딩이 완료된 후에만 검사
+    if (authLoading) return;
+    
     if (!user) {
       router.push('/login');
       return;
@@ -37,7 +40,7 @@ export default function ProfilePage() {
       techStack: user.techStack || [],
     });
     setProfileImage(user.profileImage || '');
-  }, [user, router]);
+  }, [user, authLoading, router]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
