@@ -21,7 +21,7 @@ export function Header() {
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
             <Link href="/" className="text-xl font-bold text-gray-900">
-              멘토-멘티 매칭
+              <span className="font-bold text-xl">mentoti</span>
             </Link>
             
             {user && (

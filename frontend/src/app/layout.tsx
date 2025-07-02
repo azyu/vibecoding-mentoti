@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "멘토-멘티 매칭 플랫폼",
+  title: "mentoti",
   description: "멘토와 멘티를 연결하는 매칭 플랫폼",
 };
 

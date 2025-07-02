@@ -18,9 +18,7 @@ export default function Home() {
           <div className="text-center max-w-6xl mx-auto px-4">
             <div className="flex flex-col lg:flex-row items-center justify-between mb-12">
               <div className="lg:w-1/2 mb-8 lg:mb-0">
-                <h1 className="text-5xl font-bold text-gray-900 mb-4">
-                  멘토-멘티 매칭 플랫폼
-                </h1>
+                <h1 className="text-5xl font-bold text-gray-900 leading-tight">mentoti</h1>
                 <p className="text-xl text-gray-600 mb-8">
                   전문가 멘토와 열정적인 멘티를 연결하여<br />
                   함께 성장하는 기회를 만들어갑니다.
@@ -84,7 +82,7 @@ export default function Home() {
                       className="w-16 h-16 mx-auto mb-4 hover:scale-110 transition-transform duration-200"
                     />
                     <h3 className="text-lg font-semibold mb-2">스마트 매칭</h3>
-                    <p className="text-gray-600 text-sm">AI 기반으로 최적의 멘토-멘티 매칭을 제공합니다</p>
+                    <p className="text-gray-600 text-sm">mentoti는 AI 기반으로 최적의 멘토-멘티 매칭을 제공합니다</p>
                   </div>
                   <div className="text-center p-4 rounded-lg hover:bg-gray-50 transition-colors duration-200">
                     <img 
