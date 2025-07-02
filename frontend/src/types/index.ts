@@ -54,6 +54,7 @@ export interface UpdateProfileData {
 
 export interface Mentor {
   id: string;
+  email: string;
   name: string;
   bio?: string;
   techStack: string[];

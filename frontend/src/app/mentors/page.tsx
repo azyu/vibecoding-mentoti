@@ -11,6 +11,7 @@ import { Card, CardBody } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Select } from '@/components/ui/Select';
 import { Mentor, MentorListQuery, UserRole, MatchRequest } from '@/types';
+import { getGravatarUrl } from '@/lib/utils';
 
 export default function MentorsPage() {
   const { user, loading: authLoading } = useAuth();
@@ -229,22 +230,15 @@ export default function MentorsPage() {
                     <div className="flex items-start justify-between mb-6">
                       <div className="flex items-center space-x-4">
                         <div className="w-16 h-16 rounded-full overflow-hidden bg-gradient-to-br from-blue-100 to-purple-100 ring-2 ring-white shadow-md">
-                          {mentor.profileImage ? (
-                            <img
-                              src={mentor.profileImage}
-                              alt={mentor.name}
-                              className="w-full h-full object-cover"
-                            />
-                          ) : (
-                            <div className="w-full h-full flex items-center justify-center text-blue-500">
-                              <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
-                                <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
-                              </svg>
-                            </div>
-                          )}
+                          <img
+                            src={mentor.profileImage || getGravatarUrl(mentor.email, 200)}
+                            alt={mentor.name}
+                            className="w-full h-full object-cover"
+                          />
                         </div>
                         <div className="flex-1">
                           <h3 className="text-xl font-bold text-gray-900 mb-1">{mentor.name}</h3>
+                          <p className="text-sm text-gray-500 mb-2">{mentor.email}</p>
                           <div className="flex items-center space-x-2">
                             <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
                               멘토

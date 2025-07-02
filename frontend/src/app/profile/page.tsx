@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/Button';
 import { Card, CardHeader, CardTitle, CardBody } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { UserRole, UpdateProfileData } from '@/types';
+import { getGravatarUrl } from '@/lib/utils';
 
 export default function ProfilePage() {
   const { user, updateUser, loading: authLoading } = useAuth();
@@ -123,19 +124,11 @@ export default function ProfilePage() {
               <div className="space-y-6">
                 <div className="flex items-center space-x-6">
                   <div className="w-24 h-24 rounded-full overflow-hidden bg-gray-200">
-                    {profileImage ? (
-                      <img
-                        src={profileImage}
-                        alt={user.name}
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center text-gray-400">
-                        <svg className="w-12 h-12" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
-                        </svg>
-                      </div>
-                    )}
+                    <img
+                      src={profileImage || getGravatarUrl(user.email, 200)}
+                      alt={user.name}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
                   <div>
                     <h2 className="text-2xl font-bold">{user.name}</h2>
@@ -174,20 +167,12 @@ export default function ProfilePage() {
                   </label>
                   <div className="flex items-center space-x-4">
                     <div className="w-24 h-24 rounded-full overflow-hidden bg-gray-200">
-                      {profileImage ? (
-                        <img
-                          src={profileImage}
-                          alt={user.name}
-                          className="w-full h-full object-cover"
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center text-gray-400">
-                          <svg className="w-12 h-12" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
-                          </svg>
-                        </div>
-                      )}
-                    </div>
+                    <img
+                      src={profileImage || getGravatarUrl(user.email, 200)}
+                      alt={user.name}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
                     <input
                       type="file"
                       accept="image/jpeg,image/png"

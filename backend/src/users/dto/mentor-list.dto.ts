@@ -45,6 +45,9 @@ export class MentorDto {
   @ApiProperty({ example: '123e4567-e89b-12d3-a456-426614174000' })
   id: string;
 
+  @ApiProperty({ example: 'mentor@example.com' })
+  email: string;
+
   @ApiProperty({ example: '홍길동' })
   name: string;
 

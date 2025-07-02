@@ -90,6 +90,7 @@ export class UsersService {
 
     const data: MentorDto[] = mentors.map(mentor => ({
       id: mentor.id,
+      email: mentor.email,
       name: mentor.name,
       bio: mentor.bio,
       techStack: mentor.techStack || [],
