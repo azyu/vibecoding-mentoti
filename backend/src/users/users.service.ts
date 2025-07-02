@@ -56,7 +56,7 @@ export class UsersService {
     menteeId: string,
     query: MentorListQueryDto,
   ): Promise<MentorListResponseDto> {
-    const { name, techStack, sortBy, page, limit } = query;
+    const { name, techStack, sortBy, page = 1, limit = 10 } = query;
     
     const queryBuilder = this.userRepository
       .createQueryBuilder('user')

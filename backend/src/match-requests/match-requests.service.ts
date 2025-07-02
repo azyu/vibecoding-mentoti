@@ -74,7 +74,7 @@ export class MatchRequestsService {
     const mentor = await this.userRepository.findOne({ where: { id: mentorId } });
 
     return requests.map(request => 
-      this.toMatchRequestDto(request, mentor, request.mentee),
+      this.toMatchRequestDto(request, mentor!, request.mentee),
     );
   }
 
@@ -88,7 +88,7 @@ export class MatchRequestsService {
     const mentee = await this.userRepository.findOne({ where: { id: menteeId } });
 
     return requests.map(request => 
-      this.toMatchRequestDto(request, request.mentor, mentee),
+      this.toMatchRequestDto(request, request.mentor, mentee!),
     );
   }
 

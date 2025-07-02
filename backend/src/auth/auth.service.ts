@@ -37,7 +37,7 @@ export class AuthService {
       name,
       role,
       bio,
-      techStack: role === UserRole.MENTOR ? techStack : null,
+      techStack: role === UserRole.MENTOR ? techStack : undefined,
     });
 
     await this.userRepository.save(user);
