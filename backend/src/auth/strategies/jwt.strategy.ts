@@ -11,7 +11,6 @@ export interface JwtPayload {
   name: string;
   role: string;
   iat: number;
-  exp: number;
   nbf?: number;
   iss?: string;
   aud?: string;

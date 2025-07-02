@@ -68,7 +68,6 @@ export class AuthService {
       name: user.name,
       role: user.role,
       iat: Math.floor(Date.now() / 1000),
-      exp: Math.floor(Date.now() / 1000) + 3600,
       iss: 'mentor-mentee-app',
       aud: 'mentor-mentee-app-users',
       jti: `${user.id}-${Date.now()}`,
