@@ -1,8 +1,21 @@
 # 멘토-멘티 매칭 앱 API 명세서
 
+## 아키텍처 개요
+
+이 앱은 **마이크로서비스 아키텍처**로 구성되어 있습니다:
+- **Backend (NestJS)**: API Gateway 역할, 클라이언트 요청 처리
+- **Microservices**: gRPC로 통신하는 독립적인 서비스들
+  - User Service (사용자 관리)
+  - Mentor Service (멘토 관리)
+  - Match Service (매칭 관리)
+  - Profile Service (프로필 관리)
+
+## API 엔드포인트 규칙
+
 - 모든 API 엔드포인트는 `http://localhost:8080/api/` 하위 경로를 기준으로 정의했습니다.
 - 모든 인증이 필요한 요청에는 반드시 `Authorization: Bearer <token>` 헤더를 포함해야 합니다.
 - 모든 요청과 응답은 JSON 형식의 개체를 주고 받아야 합니다.
+- Backend는 각 요청을 해당 마이크로서비스로 gRPC 호출하여 처리합니다.
 
 ## 1. 인증 (Authentication)
 

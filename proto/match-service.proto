@@ -1,0 +1,175 @@
+syntax = "proto3";
+
+package match;
+
+option go_package = "./match";
+
+// 매칭 요청 관리 서비스
+service MatchService {
+  // 매칭 요청 생성
+  rpc CreateMatchRequest(CreateMatchRequestRequest) returns (CreateMatchRequestResponse);
+  
+  // 매칭 요청 조회
+  rpc GetMatchRequest(GetMatchRequestRequest) returns (GetMatchRequestResponse);
+  
+  // 들어온 매칭 요청 목록 조회 (멘토용)
+  rpc GetIncomingMatchRequests(GetIncomingMatchRequestsRequest) returns (GetIncomingMatchRequestsResponse);
+  
+  // 보낸 매칭 요청 목록 조회 (멘티용)
+  rpc GetOutgoingMatchRequests(GetOutgoingMatchRequestsRequest) returns (GetOutgoingMatchRequestsResponse);
+  
+  // 매칭 요청 수락
+  rpc AcceptMatchRequest(AcceptMatchRequestRequest) returns (AcceptMatchRequestResponse);
+  
+  // 매칭 요청 거절
+  rpc RejectMatchRequest(RejectMatchRequestRequest) returns (RejectMatchRequestResponse);
+  
+  // 매칭 요청 취소
+  rpc CancelMatchRequest(CancelMatchRequestRequest) returns (CancelMatchRequestResponse);
+  
+  // 매칭 요청 상태 확인
+  rpc GetMatchRequestStatus(GetMatchRequestStatusRequest) returns (GetMatchRequestStatusResponse);
+  
+  // 중복 요청 확인
+  rpc CheckDuplicateRequest(CheckDuplicateRequestRequest) returns (CheckDuplicateRequestResponse);
+}
+
+// 매칭 요청 정보
+message MatchRequest {
+  int32 id = 1;
+  int32 mentor_id = 2;
+  int32 mentee_id = 3;
+  string message = 4;
+  MatchStatus status = 5;
+  int64 created_at = 6;
+  int64 updated_at = 7;
+}
+
+// 매칭 요청 상태
+enum MatchStatus {
+  PENDING = 0;
+  ACCEPTED = 1;
+  REJECTED = 2;
+  CANCELLED = 3;
+}
+
+// 매칭 요청 생성 요청
+message CreateMatchRequestRequest {
+  int32 mentor_id = 1;
+  int32 mentee_id = 2;
+  string message = 3;
+}
+
+// 매칭 요청 생성 응답
+message CreateMatchRequestResponse {
+  bool success = 1;
+  string message = 2;
+  MatchRequest match_request = 3;
+}
+
+// 매칭 요청 조회 요청
+message GetMatchRequestRequest {
+  int32 request_id = 1;
+}
+
+// 매칭 요청 조회 응답
+message GetMatchRequestResponse {
+  bool success = 1;
+  string message = 2;
+  MatchRequest match_request = 3;
+}
+
+// 들어온 매칭 요청 목록 조회 요청
+message GetIncomingMatchRequestsRequest {
+  int32 mentor_id = 1;
+  int32 page = 2;
+  int32 page_size = 3;
+}
+
+// 들어온 매칭 요청 목록 조회 응답
+message GetIncomingMatchRequestsResponse {
+  bool success = 1;
+  string message = 2;
+  repeated MatchRequest match_requests = 3;
+  int32 total_count = 4;
+}
+
+// 보낸 매칭 요청 목록 조회 요청
+message GetOutgoingMatchRequestsRequest {
+  int32 mentee_id = 1;
+  int32 page = 2;
+  int32 page_size = 3;
+}
+
+// 보낸 매칭 요청 목록 조회 응답
+message GetOutgoingMatchRequestsResponse {
+  bool success = 1;
+  string message = 2;
+  repeated MatchRequest match_requests = 3;
+  int32 total_count = 4;
+}
+
+// 매칭 요청 수락 요청
+message AcceptMatchRequestRequest {
+  int32 request_id = 1;
+  int32 mentor_id = 2;
+}
+
+// 매칭 요청 수락 응답
+message AcceptMatchRequestResponse {
+  bool success = 1;
+  string message = 2;
+  MatchRequest match_request = 3;
+}
+
+// 매칭 요청 거절 요청
+message RejectMatchRequestRequest {
+  int32 request_id = 1;
+  int32 mentor_id = 2;
+}
+
+// 매칭 요청 거절 응답
+message RejectMatchRequestResponse {
+  bool success = 1;
+  string message = 2;
+  MatchRequest match_request = 3;
+}
+
+// 매칭 요청 취소 요청
+message CancelMatchRequestRequest {
+  int32 request_id = 1;
+  int32 mentee_id = 2;
+}
+
+// 매칭 요청 취소 응답
+message CancelMatchRequestResponse {
+  bool success = 1;
+  string message = 2;
+  MatchRequest match_request = 3;
+}
+
+// 매칭 요청 상태 확인 요청
+message GetMatchRequestStatusRequest {
+  int32 request_id = 1;
+}
+
+// 매칭 요청 상태 확인 응답
+message GetMatchRequestStatusResponse {
+  bool success = 1;
+  string message = 2;
+  MatchStatus status = 3;
+}
+
+// 중복 요청 확인 요청
+message CheckDuplicateRequestRequest {
+  int32 mentor_id = 1;
+  int32 mentee_id = 2;
+}
+
+// 중복 요청 확인 응답
+message CheckDuplicateRequestResponse {
+  bool success = 1;
+  string message = 2;
+  bool has_duplicate = 3;
+  MatchRequest existing_request = 4;
+}

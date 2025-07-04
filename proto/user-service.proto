@@ -1,0 +1,125 @@
+syntax = "proto3";
+
+package user;
+
+option go_package = "./user";
+
+// 사용자 관리 서비스
+service UserService {
+  // 회원가입
+  rpc SignUp(SignUpRequest) returns (SignUpResponse);
+  
+  // 로그인
+  rpc Login(LoginRequest) returns (LoginResponse);
+  
+  // 사용자 정보 조회
+  rpc GetUser(GetUserRequest) returns (GetUserResponse);
+  
+  // 사용자 정보 수정
+  rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse);
+  
+  // 사용자 삭제
+  rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse);
+  
+  // 이메일로 사용자 조회
+  rpc GetUserByEmail(GetUserByEmailRequest) returns (GetUserByEmailResponse);
+}
+
+// 사용자 정보
+message User {
+  int32 id = 1;
+  string email = 2;
+  string password_hash = 3;
+  string name = 4;
+  Role role = 5;
+  string bio = 6;
+  repeated string skills = 7;
+  bytes profile_image = 8;
+  int64 created_at = 9;
+  int64 updated_at = 10;
+}
+
+// 사용자 역할
+enum Role {
+  MENTOR = 0;
+  MENTEE = 1;
+}
+
+// 회원가입 요청
+message SignUpRequest {
+  string email = 1;
+  string password = 2;
+  string name = 3;
+  Role role = 4;
+}
+
+// 회원가입 응답
+message SignUpResponse {
+  bool success = 1;
+  string message = 2;
+  User user = 3;
+}
+
+// 로그인 요청
+message LoginRequest {
+  string email = 1;
+  string password = 2;
+}
+
+// 로그인 응답
+message LoginResponse {
+  bool success = 1;
+  string message = 2;
+  User user = 3;
+}
+
+// 사용자 조회 요청
+message GetUserRequest {
+  int32 user_id = 1;
+}
+
+// 사용자 조회 응답
+message GetUserResponse {
+  bool success = 1;
+  string message = 2;
+  User user = 3;
+}
+
+// 사용자 정보 수정 요청
+message UpdateUserRequest {
+  int32 user_id = 1;
+  string name = 2;
+  string bio = 3;
+  repeated string skills = 4;
+  bytes profile_image = 5;
+}
+
+// 사용자 정보 수정 응답
+message UpdateUserResponse {
+  bool success = 1;
+  string message = 2;
+  User user = 3;
+}
+
+// 사용자 삭제 요청
+message DeleteUserRequest {
+  int32 user_id = 1;
+}
+
+// 사용자 삭제 응답
+message DeleteUserResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+// 이메일로 사용자 조회 요청
+message GetUserByEmailRequest {
+  string email = 1;
+}
+
+// 이메일로 사용자 조회 응답
+message GetUserByEmailResponse {
+  bool success = 1;
+  string message = 2;
+  User user = 3;
+}

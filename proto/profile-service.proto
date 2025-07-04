@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+package profile;
+
+option go_package = "./profile";
+
+// 프로필 관리 서비스
+service ProfileService {
+  // 프로필 이미지 업로드
+  rpc UploadProfileImage(UploadProfileImageRequest) returns (UploadProfileImageResponse);
+  
+  // 프로필 이미지 조회
+  rpc GetProfileImage(GetProfileImageRequest) returns (GetProfileImageResponse);
+  
+  // 프로필 이미지 삭제
+  rpc DeleteProfileImage(DeleteProfileImageRequest) returns (DeleteProfileImageResponse);
+  
+  // 프로필 이미지 URL 생성
+  rpc GenerateProfileImageUrl(GenerateProfileImageUrlRequest) returns (GenerateProfileImageUrlResponse);
+}
+
+// 프로필 이미지 업로드 요청
+message UploadProfileImageRequest {
+  int32 user_id = 1;
+  string role = 2; // "mentor" or "mentee"
+  bytes image_data = 3;
+  string content_type = 4; // "image/jpeg" or "image/png"
+}
+
+// 프로필 이미지 업로드 응답
+message UploadProfileImageResponse {
+  bool success = 1;
+  string message = 2;
+  string image_url = 3;
+}
+
+// 프로필 이미지 조회 요청
+message GetProfileImageRequest {
+  int32 user_id = 1;
+  string role = 2; // "mentor" or "mentee"
+}
+
+// 프로필 이미지 조회 응답
+message GetProfileImageResponse {
+  bool success = 1;
+  string message = 2;
+  bytes image_data = 3;
+  string content_type = 4;
+}
+
+// 프로필 이미지 삭제 요청
+message DeleteProfileImageRequest {
+  int32 user_id = 1;
+  string role = 2; // "mentor" or "mentee"
+}
+
+// 프로필 이미지 삭제 응답
+message DeleteProfileImageResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+// 프로필 이미지 URL 생성 요청
+message GenerateProfileImageUrlRequest {
+  int32 user_id = 1;
+  string role = 2; // "mentor" or "mentee"
+}
+
+// 프로필 이미지 URL 생성 응답
+message GenerateProfileImageUrlResponse {
+  bool success = 1;
+  string message = 2;
+  string image_url = 3;
+}
