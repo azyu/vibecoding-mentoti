@@ -2,6 +2,8 @@
 
 ## 빠른 시작
 
+요구 버전은 Node.js `26.13.0` 이상입니다 (`.nvmrc` 참조). npm workspaces 저장소이므로 루트에서 의존성을 한 번 설치하세요.
+
 ### 1. 자동 실행 (추천)
 ```bash
 ./start-local.sh
@@ -27,7 +29,7 @@ cp .env.example .env
 
 #### 3) 의존성 설치
 ```bash
-npm run install:all
+npm ci
 ```
 
 #### 4) 개발 서버 실행
